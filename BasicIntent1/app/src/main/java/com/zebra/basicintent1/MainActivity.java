@@ -14,6 +14,9 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.util.Log;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
             Bundle b = intent.getExtras();
 
             //  This is useful for debugging to verify the format of received intents from DataWedge
-            //for (String key : b.keySet())
-            //{
-            //    Log.v(LOG_TAG, key);
-            //}
+//            for (String key : b.keySet())
+//            {
+//                Log.v(LOG_TAG, key);
+//            }
 
             if (action.equals(getResources().getString(R.string.activity_intent_filter_action))) {
                 //  Received a barcode scan
@@ -91,9 +94,27 @@ public class MainActivity extends AppCompatActivity {
         final TextView lblScanSource = (TextView) findViewById(R.id.lblScanSource);
         final TextView lblScanData = (TextView) findViewById(R.id.lblScanData);
         final TextView lblScanLabelType = (TextView) findViewById(R.id.lblScanDecoder);
+        final TextView lblCustomText = (TextView) findViewById(R.id.lblCustomText);
+
 
         lblScanSource.setText(decodedSource + " " + howDataReceived);
         lblScanData.setText(decodedData);
         lblScanLabelType.setText(decodedLabelType);
+
+        Log.d("ScanDataDebug", "Decoded Data: " + decodedData);
+        if (decodedData != null) {
+            Log.d("ScanDataType", "Type of decodedData: " + decodedData.getClass().getName());
+        } else {
+            Log.d("ScanDataType", "decodedData is null");
+        }
+
+        if ("librasp24\n".equals(decodedData)) {
+            Log.d("ScanDataType", "entered");
+            lblCustomText.setText(R.string.custom_text_libra);
+        } else {
+            Log.d("ScanDataType", "did entered");
+            lblCustomText.setText(R.string.custom_text_NOTlibra);
+        }
+
     }
 }
