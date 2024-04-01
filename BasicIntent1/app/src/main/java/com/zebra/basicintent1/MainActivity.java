@@ -130,8 +130,14 @@ public class MainActivity extends AppCompatActivity {
 //            lblCustomText.setText(R.string.custom_text_NOTlibra);
 //        }
 
+
+        String customText = decodedSource;
+        if ("librasp24".equals(decodedData)) {
+            customText = "Libra Barcode!";
+        }
+
         // Create a new ScanItem and add it to the list
-        ScanItem newScan = new ScanItem(decodedSource, decodedData, decodedLabelType);
+        ScanItem newScan = new ScanItem(customText, decodedData, decodedLabelType);
         scanItems.add(newScan);
 
         // Notify the adapter that the data set has changed so the view can be updated
