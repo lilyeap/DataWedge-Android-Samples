@@ -102,17 +102,17 @@ public class MainActivity extends AppCompatActivity {
         String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
         String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+//        // original Stuff
+//        final TextView lblScanSource = (TextView) findViewById(R.id.lblScanSource);
+//        final TextView lblScanData = (TextView) findViewById(R.id.lblScanData);
+//        final TextView lblScanLabelType = (TextView) findViewById(R.id.lblScanDecoder);
+//
+//        lblScanSource.setText(decodedSource + " " + howDataReceived);
+//        lblScanData.setText(decodedData);
+//        lblScanLabelType.setText(decodedLabelType);
 
-        final TextView lblScanSource = (TextView) findViewById(R.id.lblScanSource);
-        final TextView lblScanData = (TextView) findViewById(R.id.lblScanData);
-        final TextView lblScanLabelType = (TextView) findViewById(R.id.lblScanDecoder);
-        final TextView lblCustomText = (TextView) findViewById(R.id.lblCustomText);
 
-
-        lblScanSource.setText(decodedSource + " " + howDataReceived);
-        lblScanData.setText(decodedData);
-        lblScanLabelType.setText(decodedLabelType);
-
+        // debugging stuff
         Log.d("ScanDataDebug", "Decoded Data: " + decodedData);
         if (decodedData != null) {
             Log.d("ScanDataType", "Type of decodedData: " + decodedData.getClass().getName());
@@ -120,13 +120,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ScanDataType", "decodedData is null");
         }
 
-        if ("librasp24".equals(decodedData)) {
-            Log.d("ScanDataType", "entered");
-            lblCustomText.setText(R.string.custom_text_libra);
-        } else {
-            Log.d("ScanDataType", "did entered");
-            lblCustomText.setText(R.string.custom_text_NOTlibra);
-        }
+        // add on to the original app
+//        final TextView lblCustomText = (TextView) findViewById(R.id.lblCustomText);
+//        if ("librasp24".equals(decodedData)) {
+//            Log.d("ScanDataType", "entered");
+//            lblCustomText.setText(R.string.custom_text_libra);
+//        } else {
+//            Log.d("ScanDataType", "did entered");
+//            lblCustomText.setText(R.string.custom_text_NOTlibra);
+//        }
 
         // Create a new ScanItem and add it to the list
         ScanItem newScan = new ScanItem(decodedSource, decodedData, decodedLabelType);
