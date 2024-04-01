@@ -13,12 +13,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<ScanItem> scanItems = new ArrayList<>();
+    private ScanAdapter scanAdapter;
 
     //
     // The section snippet below registers to receive the data broadcast from the
@@ -37,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RecyclerView scansRecyclerView = findViewById(R.id.scansRecyclerView);
+        scansRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        scanAdapter = new ScanAdapter(scanItems);
+        scansRecyclerView.setAdapter(scanAdapter);
 
         IntentFilter filter = new IntentFilter();
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -108,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ScanDataType", "decodedData is null");
         }
 
-        if ("librasp24\n".equals(decodedData)) {
+        if ("librasp24".equals(decodedData)) {
             Log.d("ScanDataType", "entered");
             lblCustomText.setText(R.string.custom_text_libra);
         } else {
@@ -116,5 +128,11 @@ public class MainActivity extends AppCompatActivity {
             lblCustomText.setText(R.string.custom_text_NOTlibra);
         }
 
+        // Create a new ScanItem and add it to the list
+        ScanItem newScan = new ScanItem(decodedSource, decodedData, decodedLabelType);
+        scanItems.add(newScan);
+
+        // Notify the adapter that the data set has changed so the view can be updated
+        scanAdapter.notifyDataSetChanged();
     }
 }

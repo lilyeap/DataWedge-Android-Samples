@@ -16,4 +16,7 @@
 
     <string name="custom_text_libra">You just scanned a libra barcode!!</string>
     <string name="custom_text_NOTlibra">hehe</string>
+    <string name="recycleData">Data</string>
+    <string name="recycleLabel_type">Label Type</string>
+    <string name="recycleSource">Source</string>
 </resources>
